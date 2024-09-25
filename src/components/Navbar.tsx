@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
 function Navbar() {
-    
+
     return (
         <React.Fragment>
             <header className="bg-white">
