@@ -1,11 +1,40 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 function Navbar() {
+    useEffect(() => {
+        let mbnav = document.getElementById("mobile-nav-view");
+        if (mbnav) mbnav.style.display = "none";
+    }, [])
 
+    function getCookie(cname: string) {
+        let name = cname + "=";
+        let ca = document.cookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) === 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+    function setCookie(cname: string, cvalue: string, exdays: number) {
+        const d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        let expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    let curr_user: string = getCookie("user_name");
+    if(!curr_user) setCookie("user_name", "", -1);
+    
     return (
         <React.Fragment>
-            <header className="bg-white">
+            <header className="bg-white !max-h-[80px]">
                 <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
                     <div className="flex lg:flex-1">
                         <a href="#" className="-m-1.5 p-1.5">
@@ -14,7 +43,12 @@ function Navbar() {
                         </a>
                     </div>
                     <div className="flex lg:hidden">
-                        <button type="button" className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700">
+                        <button type="button" className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+                            onClick={() => {
+                                let mbviewnav = document.getElementById("mobile-nav-view");
+                                if (mbviewnav) mbviewnav.style.display = "block";
+                            }}
+                        >
                             <span className="sr-only">Open main menu</span>
                             <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
@@ -22,18 +56,16 @@ function Navbar() {
                         </button>
                     </div>
                     <div className="hidden lg:flex lg:gap-x-12">
-                        <a href="#" className="text-sm font-semibold leading-6 text-gray-900">Products</a>
-                        <a href="#" className="text-sm font-semibold leading-6 text-gray-900">Features</a>
-                        <a href="#" className="text-sm font-semibold leading-6 text-gray-900">Marketplace</a>
-                        <a href="#" className="text-sm font-semibold leading-6 text-gray-900">Company</a>
+                        <Link to={"/"} className="text-sm font-semibold leading-6 text-gray-900">Home</Link>
+                        <Link to={"/about"} className="text-sm font-semibold leading-6 text-gray-900">About</Link>
+                        <Link to={"/pricing"} className="text-sm font-semibold leading-6 text-gray-900">Pricing</Link>
+                        <Link to={"/"} className="text-sm font-semibold leading-6 text-gray-900">Company</Link>
                     </div>
                     <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-                        <Link to="/login" className="text-sm font-semibold leading-6 text-gray-900">Log in <span aria-hidden="true">&rarr;</span></Link>
+                        <Link to={(curr_user != "undefined") ? "/dashboard" : "/login"} className="text-sm font-semibold leading-6 text-gray-900">{(curr_user == "undefined") ? "Log in" : curr_user} <span aria-hidden="true">&rarr;</span></Link>
                     </div>
                 </nav>
-
-                <div className="lg:hidden" role="dialog" aria-modal="true">
-
+                <div className="lg:hidden" id="mobile-nav-view" role="dialog" aria-modal="true">
                     <div className="fixed inset-0 z-10"></div>
                     <div className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
                         <div className="flex items-center justify-between">
@@ -41,9 +73,10 @@ function Navbar() {
                                 <span className="sr-only">Your Company</span>
                                 <img className="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="" />
                             </a>
-                            <button type="button" className="-m-2.5 rounded-md p-2.5 text-gray-700" onClick={
-                                ()=>{
-                                    
+                            <button type="button" className="-m-2.5 rounded-md p-2.5 text-gray-700 transition-transform" onClick={
+                                () => {
+                                    let mbview = document.getElementById("mobile-nav-view");
+                                    if (mbview) mbview.style.display = "none";
                                 }
                             }>
                                 <span className="sr-only">Close menu</span>
@@ -68,7 +101,6 @@ function Navbar() {
                     </div>
                 </div>
             </header>
-
         </React.Fragment>
     )
 }
