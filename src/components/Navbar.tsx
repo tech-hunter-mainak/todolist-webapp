@@ -30,7 +30,7 @@ function Navbar() {
     }
 
     let curr_user: string = getCookie("user_name");
-    if(!curr_user) setCookie("user_name", "", -1);
+    if(!curr_user) setCookie("user_name", "", 1);
     
     return (
         <React.Fragment>
@@ -62,7 +62,7 @@ function Navbar() {
                         <Link to={"/"} className="text-sm font-semibold leading-6 text-gray-900">Company</Link>
                     </div>
                     <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-                        <Link to={(curr_user != "undefined") ? "/dashboard" : "/login"} className="text-sm font-semibold leading-6 text-gray-900">{(curr_user == "undefined") ? "Log in" : curr_user} <span aria-hidden="true">&rarr;</span></Link>
+                        <Link to={(curr_user == "undefined" || curr_user == "" || curr_user == null ) ? "/login" : "/dashboard"} className="text-sm font-semibold leading-6 text-gray-900">{(curr_user == "undefined" || curr_user == "" || curr_user == null ) ? "Log in" : curr_user} <span aria-hidden="true">&rarr;</span></Link>
                     </div>
                 </nav>
                 <div className="lg:hidden" id="mobile-nav-view" role="dialog" aria-modal="true">
