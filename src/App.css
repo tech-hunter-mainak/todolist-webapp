@@ -1,8 +1,11 @@
 #root {
-  max-width: 1280px;
   margin: 0;
   text-align: center;
   transition: all 0.3s;
+}
+
+* {
+  scroll-behavior: smooth;
 }
 
 .logo {

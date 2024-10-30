@@ -57,18 +57,32 @@ export function LoginHandle() {
       alert("Passwords do not match");
       return;
     }
+  
+    const usersRef = collection(db, 'users');
+    const emailQuery = query(usersRef, where('email', '==', formData.email));
+  
     try {
-      const docRef = await addDoc(collection(db, 'users'), {
+      const querySnapshot = await getDocs(emailQuery);
+  
+      if (!querySnapshot.empty) {
+        alert("Email already exists. Please use a different email.");
+        return;
+      }
+  
+      // If the email does not exist, proceed with the signup
+      const docRef = await addDoc(usersRef, {
         name: formData.name,
         email: formData.email,
         password: formData.password,
       });
       console.log('User added:', docRef.id);
       alert('User registered successfully!');
+  
     } catch (error) {
       console.error('Error adding user: ', error);
     }
   };
+  
 
   const handleLogin = async () => {
     const usersRef = collection(db, 'users');
@@ -83,6 +97,7 @@ export function LoginHandle() {
         console.log('User logged in:', querySnapshot.docs.map(doc => doc.data()));
         user_data = querySnapshot.docs.map(doc => doc.data())
         setCookie("user_name", String(user_data[0].name), 1);
+        setCookie("user_mail", String(user_data[0].email), 1);
         console.log(getCookie("user_name"));
       }
     } catch (error) {

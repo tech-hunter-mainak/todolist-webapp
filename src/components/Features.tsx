@@ -11,22 +11,11 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ imageSrc, title, description 
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <div
-      className="feature-card relative overflow-hidden rounded-lg shadow-lg transition-transform duration-500 ease-in-out transform hover:scale-105 hover:shadow-xl"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      {/* Upper Section - Image */}
-      <div
-        className={`image-wrapper transition-transform duration-500 ease-in-out translate-y-0`}
-      >
-        <img src={imageSrc} alt={title} className="object-cover w-full h-40" />
-      </div>
-
-      {/* Lower Section - Description */}
-      <div className={`description transition-all duration-500 ease-in-out ${isHovered ? 'translate-y-0' : 'translate-y-full'}`}>
-        <h3 className="feature-title text-xl font-bold text-gray-800 mb-2">{title}</h3>
-        <p className="feature-description text-gray-600">{description}</p>
+    <div className='w-[300px] rounded-xl overflow-hidden text-slate-900 h-auto shadow-slate-400 shadow-md hover:scale-105 transition-all ease-in-out duration-500'>
+      <img src={imageSrc} alt={title} className='w-[300px] h-[200px]' />
+      <div className='p-5'>
+        <div className='text-xl m-[1rem]'>{title}</div>
+        <div className='text-base'>{description}</div>
       </div>
     </div>
   );
@@ -34,7 +23,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ imageSrc, title, description 
 
 const Features = () => {
   return (
-    <section id="features" className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-8 px-4 md:px-16 py-16 bg-gray-100">
+    <section id="features" className="relative z-10 flex flex-wrap justify-around gap-8 px-4 md:px-16 py-16 bg-gray-100">
       {/* Feature Card 1 */}
       <FeatureCard
         imageSrc="/path/to/task-management.jpg"
@@ -51,7 +40,7 @@ const Features = () => {
 
       {/* Feature Card 3 */}
       <FeatureCard
-        imageSrc=""
+        imageSrc={img}
         title="Progress Tracking"
         description="Visualize your progress and keep track of completed tasks with an intuitive progress tracker."
       />
