@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Sidebar from '@/components/SideNavbar'
-import { Route, BrowserRouter as Router, Link, Routes} from 'react-router-dom'
 import Profile from './Profile'
 import { JSX } from 'react/jsx-runtime'
 

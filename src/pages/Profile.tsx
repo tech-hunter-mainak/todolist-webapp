@@ -53,7 +53,7 @@ export function ChangeProfile({
 
 function Profile() {
   const [name, setName] = useState("")
-  const [email, setEmail] = useState("md.59mbl@gmail.com") // Replace with authenticated user's email
+  let email = "md.59mbl@gmail.com" // Replace with authenticated user's email
   const [isEditing, setIsEditing] = useState(false)
   const [loading, setLoading] = useState(true)
 

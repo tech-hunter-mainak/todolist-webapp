@@ -21,7 +21,7 @@ function Sidebar({display}:any) {
     }
     
     return (
-      <a
+      <a href={href}
         onClick={change}
         className="font-medium text-sm items-center rounded-lg text-gray-900 px-4 py-2.5 flex transition-all duration-200 hover:bg-gray-200 group cursor-pointer"
         aria-label={label?.toString()}
@@ -79,7 +79,6 @@ function Sidebar({display}:any) {
                     }
                   />
                   <SidebarLink
-
                     href="#"
                     label="To Do's"
                     icon={

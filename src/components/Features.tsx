@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {  } from 'react';
 import img from "../assets/to-do-list-laptop-grey-background-150052787.webp"
 
 interface FeatureCardProps {
@@ -8,7 +8,7 @@ interface FeatureCardProps {
 }
 
 const FeatureCard: React.FC<FeatureCardProps> = ({ imageSrc, title, description }) => {
-  const [isHovered, setIsHovered] = useState(false);
+  // const [isHovered, setIsHovered] = useState(false);
 
   return (
     <div className='w-[300px] rounded-xl overflow-hidden text-slate-900 h-auto shadow-slate-400 shadow-md hover:scale-105 transition-all ease-in-out duration-500'>
